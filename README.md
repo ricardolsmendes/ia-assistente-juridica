@@ -1,2 +1,1 @@
-# ia-assistente-juridico
-Assistente Jurídico enriquecido com IA
+# Assistente Jurídico impulsionado por IA
