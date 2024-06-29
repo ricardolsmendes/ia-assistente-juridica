@@ -1,1 +1,1 @@
-# Assistente Jurídico impulsionado por IA
+# Assistente Jurídica impulsionada por IA
