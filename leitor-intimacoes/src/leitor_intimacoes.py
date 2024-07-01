@@ -3,7 +3,7 @@ from typing import Any, Dict, Optional
 from langchain_core import messages, prompts, output_parsers
 
 import model_factory
-import prompts_customizados
+import prompts_leitor
 
 
 class LeitorIntimacoes:
