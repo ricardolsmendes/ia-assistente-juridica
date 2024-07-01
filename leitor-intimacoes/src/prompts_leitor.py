@@ -4,8 +4,8 @@ documents published in Brazilian Portuguese.
 
 Instructions:
 1. JSON is the expected output format.
-2. Attribute names must be in camel case.
-3. The results must contain only the requested fields.
+2. The resulting objects must contain only the requested fields.
+3. Attribute names must be in camel case.
 4. Date fields must be formatted as YYYY-MM-DD if their values are available or null otherwise.
 
 Begin!
