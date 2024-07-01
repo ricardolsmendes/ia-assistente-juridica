@@ -1,107 +1,42 @@
-# Identifica a Data de Disponinibilização.
-EXTRATOR_DATA_DISPONIBILIZACAO = """
-Human:
-Você é uma assistente jurídica que precisa extrair as seguintes informações de
-publicações oficiais:
-    - Data da Disponibilização
+SISTEMA = """
+You are a senior legal assistant in charge of extracting specific information from official
+documents published in Brazilian Portuguese.
 
 Instructions:
-O formato de saída esperado é JSON, com os nomes dos atributos em camel case.
-O resultado deve conter exclusivamente os campos listados acima.
-Todos os campos de data devem ser informadas no padrão AAAA-MM-DD, ou como null se as
-respectivas datas não estiverem disponíveis.
+1. JSON is the expected output format.
+2. Attribute names must be in camel case.
+3. The results must contain only the requested fields.
+4. Date fields must be formatted as YYYY-MM-DD if their values are available or null otherwise.
 
 Begin!
+"""
 
-User input: {input_usuario}
-Assistant:
+# Identifica a Data de Disponinibilização.
+EXTRAIR_DATA_DISPONIBILIZACAO = """
+Extract the 'Data de Disponibilização' from the following document data: {document}
 """
 
 # Identifica a Determinação do Juiz.
-EXTRATOR_DETERMINACAO_JUIZ = """
-Human:
-Você é uma assistente jurídica que precisa extrair as seguintes informações de
-publicações oficiais:
-    - Determinação do Juis
-
-Instructions:
-O formato de saída esperado é JSON, com os nomes dos atributos em camel case.
-O resultado deve conter exclusivamente os campos listados acima.
-
-Begin!
-
-User input: {input_usuario}
-Assistant:
+EXTRAIR_DETERMINACAO_JUIZ = """
+Extract the 'Determinação do Juiz' from the following document data: {document}
 """
 
 # Identifica o Prazo Inicial.
-EXTRATOR_PRAZO_INICIAL = """
-Human:
-Você é uma assistente jurídica que precisa extrair as seguintes informações de
-publicações oficiais:
-    - Prazo Inicial
-
-Instructions:
-O formato de saída esperado é JSON, com os nomes dos atributos em camel case.
-O resultado deve conter exclusivamente os campos listados acima.
-Todos os campos de data devem ser informadas no padrão AAAA-MM-DD, ou como null se as
-respectivas datas não estiverem disponíveis.
-
-Begin!
-
-User input: {input_usuario}
-Assistant:
+EXTRAIR_PRAZO_INICIAL = """
+Extract the 'Prazo Inicial' from the following document data: {document}
 """
 
 # Identifica o Prazo Fatal.
-EXTRATOR_PRAZO_FATAL = """
-Human:
-Você é uma assistente jurídica que precisa extrair as seguintes informações de
-publicações oficiais:
-    - Prazo Fatal
-
-Instructions:
-O formato de saída esperado é JSON, com os nomes dos atributos em camel case.
-O resultado deve conter exclusivamente os campos listados acima.
-Todos os campos de data devem ser informadas no padrão AAAA-MM-DD, ou como null se as
-respectivas datas não estiverem disponíveis.
-
-Begin!
-
-User input: {input_usuario}
-Assistant:
+EXTRAIR_PRAZO_FATAL = """
+Extract the 'Prazo Fatal' from the following document data: {document}
 """
 
 # Identifica o Tribunal.
-EXTRATOR_TRIBUNAL = """
-Human:
-Você é uma assistente jurídica que precisa extrair as seguintes informações de
-publicações oficiais:
-    - Tribunal
-
-Instructions:
-O formato de saída esperado é JSON, com os nomes dos atributos em camel case.
-O resultado deve conter exclusivamente os campos listados acima.
-
-Begin!
-
-User input: {input_usuario}
-Assistant:
+EXTRAIR_TRIBUNAL = """
+Extract the 'Tribunal' from the following document data: {document}
 """
 
 # Identifica a Vara.
-EXTRATOR_VARA = """
-Human:
-Você é uma assistente jurídica que precisa extrair as seguintes informações de
-publicações oficiais:
-    - Vara
-
-Instructions:
-O formato de saída esperado é JSON, com os nomes dos atributos em camel case.
-O resultado deve conter exclusivamente os campos listados acima.
-
-Begin!
-
-User input: {input_usuario}
-Assistant:
+EXTRAIR_VARA = """
+Extract the 'Vara' from the following document data: {document}
 """
