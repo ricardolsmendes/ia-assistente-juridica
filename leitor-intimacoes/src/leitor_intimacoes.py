@@ -18,7 +18,7 @@ class LeitorIntimacoes:
     ) -> Dict[str, Any]:
         prompt = prompts.ChatPromptTemplate.from_messages(
             [
-                messages.system.SystemMessage(prompts_customizados.SISTEMA),
+                messages.system.SystemMessage(prompts_leitor.SISTEMA),
                 messages.human.HumanMessage(prompt_usuario),
             ]
         )
@@ -29,34 +29,30 @@ class LeitorIntimacoes:
         self, documento: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(
-            prompts_customizados.EXTRAIR_DATA_DISPONIBILIZACAO, documento
+            prompts_leitor.EXTRAIR_DATA_DISPONIBILIZACAO, documento
         )
 
     def extrair_determinacao_juiz(
         self, documento: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(
-            prompts_customizados.EXTRAIR_DETERMINACAO_JUIZ, documento
+            prompts_leitor.EXTRAIR_DETERMINACAO_JUIZ, documento
         )
 
     def extrair_prazo_inicial(
         self, documento: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(
-            prompts_customizados.EXTRAIR_PRAZO_INICIAL, documento
+            prompts_leitor.EXTRAIR_PRAZO_INICIAL, documento
         )
 
     def extrair_prazo_fatal(
         self, documento: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
-        return self._extrair_informacoes(
-            prompts_customizados.EXTRAIR_PRAZO_FATAL, documento
-        )
+        return self._extrair_informacoes(prompts_leitor.EXTRAIR_PRAZO_FATAL, documento)
 
     def extrair_tribunal(self, documento: Dict[str, Any]) -> Dict[str, Optional[str]]:
-        return self._extrair_informacoes(
-            prompts_customizados.EXTRAIR_TRIBUNAL, documento
-        )
+        return self._extrair_informacoes(prompts_leitor.EXTRAIR_TRIBUNAL, documento)
 
     def extrair_vara(self, documento: Dict[str, Any]) -> Dict[str, Optional[str]]:
-        return self._extrair_informacoes(prompts_customizados.EXTRAIR_VARA, documento)
+        return self._extrair_informacoes(prompts_leitor.EXTRAIR_VARA, documento)
