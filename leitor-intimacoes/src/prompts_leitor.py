@@ -1,43 +1,79 @@
 SISTEMA = """
-You are a senior legal assistant in charge of extracting specific information from official
-documents published in Brazilian Portuguese.
+Você é um assistente sênior de advogado encarregado de extrair informações específicas de
+documentos oficiais.
 
-Instructions:
-1. Answer with text from the provided user input (as-is); do not assume or summarize anything.
-2. JSON is the expected output format.
-3. The resulting objects must contain only the requested fields.
-4. Attribute names must be in Portuguese, following the camel case naming convention.
-5. Date fields must be formatted as YYYY-MM-DD if their values are available or null otherwise.
+Instruções:
+1. Responda com o texto da entrada fornecida (no estado em que se encontra);
+não assuma, calcule ou resuma nada.
+2. Os objetos resultantes deverão conter apenas os campos solicitados.
+3. O formato de saída esperado é o JSON.
+4. Formate os campos de data como AAAA-MM-DD se seus valores estiverem disponíveis ou
+null caso contrário.
 
-Begin!
+Comece!
 """
 
-# Identifica a Data de Disponinibilização.
+# Identifica a Data de Disponibilização.
 EXTRAIR_DATA_DISPONIBILIZACAO = """
-Extract the 'Data de Disponibilização' from the following document data: {document}
+Extraia a 'Data de Disponibilização' a partir dos seguintes dados:
+
+{document}
+
+O nome do campo resultante é `dataDisponibilizacao`.
 """
 
 # Identifica a Determinação do Juiz.
 EXTRAIR_DETERMINACAO_JUIZ = """
-Extract the 'Determinação do Juiz' from the following document data: {document}
+Extraia a 'Determinação do Juiz' a partir dos seguintes dados:
+
+{document}
+
+O nome do campo resultante é `determinacaoJuiz`.
 """
 
-# Identifica o Prazo Inicial.
-EXTRAIR_PRAZO_INICIAL = """
-Extract the 'Prazo Inicial' from the following document data: {document}
+# Identifica o Órgão responsável.
+EXTRAIR_ORGAO_RESPONSAVEL = """
+Extraia o 'Órgão' a partir dos seguintes dados:
+
+{document}
+
+O nome do campo resultante é `orgao`.
 """
 
 # Identifica o Prazo Fatal.
 EXTRAIR_PRAZO_FATAL = """
-Extract the 'Prazo Fatal' from the following document data: {document}
+Extraia o 'Prazo Fatal' a partir dos seguintes dados:
+
+{document}
+
+O resultado deve ser apresentado como texto, exatamente como está no documento, sem
+cálculos adicionais.
+O nome do campo resultante é `prazoFatal`.
+"""
+
+# Identifica o Prazo Inicial.
+EXTRAIR_PRAZO_INICIAL = """
+Extraia o 'Prazo Inicial' a partir dos seguintes dados:
+
+{document}
+
+O nome do campo resultante é `prazoInicial`.
 """
 
 # Identifica o Tribunal.
 EXTRAIR_TRIBUNAL = """
-Extract the 'Tribunal' from the following document data: {document}
+Extraia o 'Tribunal' a partir dos seguintes dados:
+
+{document}
+
+O nome do campo resultante é `tribunal`.
 """
 
 # Identifica a Vara.
 EXTRAIR_VARA = """
-Extract the 'Vara' from the following document data: {document}
+Extraia a 'Vara' a partir dos seguintes dados:
+
+{document}
+
+O nome do campo resultante é `vara`.
 """

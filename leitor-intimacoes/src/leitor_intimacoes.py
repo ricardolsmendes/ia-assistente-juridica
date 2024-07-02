@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional
 
-from langchain_core import messages, prompts, output_parsers
+from langchain_core import prompts, output_parsers
 
 import model_factory
 import prompts_leitor
@@ -16,12 +16,12 @@ class LeitorIntimacoes:
     def _extrair_informacoes(
         self, prompt_usuario: str, documento: Dict[str, Any]
     ) -> Dict[str, Any]:
-        prompt = prompts.ChatPromptTemplate.from_messages(
-            [
-                messages.system.SystemMessage(prompts_leitor.SISTEMA),
-                messages.human.HumanMessage(prompt_usuario),
-            ]
-        )
+        message_list = [
+            ("system", prompts_leitor.SISTEMA),
+            ("human", prompt_usuario),
+        ]
+
+        prompt = prompts.ChatPromptTemplate.from_messages(message_list)
         chain = prompt | self.llm | self.output_parser
         return chain.invoke({"document": documento})
 
@@ -39,17 +39,22 @@ class LeitorIntimacoes:
             prompts_leitor.EXTRAIR_DETERMINACAO_JUIZ, documento
         )
 
-    def extrair_prazo_inicial(
-        self, documento: Dict[str, Any]
-    ) -> Dict[str, Optional[str]]:
+    def extrair_orgao(self, documento: Dict[str, Any]) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(
-            prompts_leitor.EXTRAIR_PRAZO_INICIAL, documento
+            prompts_leitor.EXTRAIR_ORGAO_RESPONSAVEL, documento
         )
 
     def extrair_prazo_fatal(
         self, documento: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(prompts_leitor.EXTRAIR_PRAZO_FATAL, documento)
+
+    def extrair_prazo_inicial(
+        self, documento: Dict[str, Any]
+    ) -> Dict[str, Optional[str]]:
+        return self._extrair_informacoes(
+            prompts_leitor.EXTRAIR_PRAZO_INICIAL, documento
+        )
 
     def extrair_tribunal(self, documento: Dict[str, Any]) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(prompts_leitor.EXTRAIR_TRIBUNAL, documento)
