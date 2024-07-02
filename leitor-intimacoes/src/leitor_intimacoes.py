@@ -1,10 +1,9 @@
 from typing import Any, Dict, Optional
 
 from langchain_core import prompts, output_parsers
-from langchain_core.prompts import ChatPromptTemplate
 
 import model_factory
-import prompts_customizados
+import prompts_leitor
 
 
 class LeitorIntimacoes:
@@ -15,71 +14,50 @@ class LeitorIntimacoes:
         self.output_parser = output_parsers.JsonOutputParser()
 
     def _extrair_informacoes(
-        self, input_usuario: Dict[str, Any], prompt: ChatPromptTemplate
+        self, prompt_usuario: str, documento: Dict[str, Any]
     ) -> Dict[str, Any]:
+        message_list = [
+            ("system", prompts_leitor.SISTEMA),
+            ("human", prompt_usuario),
+        ]
+
+        prompt = prompts.ChatPromptTemplate.from_messages(message_list)
         chain = prompt | self.llm | self.output_parser
-        return chain.invoke({"input_usuario": input_usuario})
+        return chain.invoke({"document": documento})
 
     def extrair_data_disponibilizacao(
-        self, input_usuario: Dict[str, Any]
+        self, documento: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
-        prompt = prompts.ChatPromptTemplate.from_messages(
-            [
-                ("system", prompts_customizados.EXTRATOR_DATA_DISPONIBILIZACAO),
-                ("user", "{input_usuario}"),
-            ]
+        return self._extrair_informacoes(
+            prompts_leitor.EXTRAIR_DATA_DISPONIBILIZACAO, documento
         )
-        return self._extrair_informacoes(input_usuario, prompt)
 
     def extrair_determinacao_juiz(
-        self, input_usuario: Dict[str, Any]
+        self, documento: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
-        prompt = prompts.ChatPromptTemplate.from_messages(
-            [
-                ("system", prompts_customizados.EXTRATOR_DETERMINACAO_JUIZ),
-                ("user", "{input_usuario}"),
-            ]
+        return self._extrair_informacoes(
+            prompts_leitor.EXTRAIR_DETERMINACAO_JUIZ, documento
         )
-        return self._extrair_informacoes(input_usuario, prompt)
 
-    def extrair_prazo_inicial(
-        self, input_usuario: Dict[str, Any]
-    ) -> Dict[str, Optional[str]]:
-        prompt = prompts.ChatPromptTemplate.from_messages(
-            [
-                ("system", prompts_customizados.EXTRATOR_PRAZO_INICIAL),
-                ("user", "{input_usuario}"),
-            ]
+    def extrair_orgao(self, documento: Dict[str, Any]) -> Dict[str, Optional[str]]:
+        return self._extrair_informacoes(
+            prompts_leitor.EXTRAIR_ORGAO_RESPONSAVEL, documento
         )
-        return self._extrair_informacoes(input_usuario, prompt)
 
     def extrair_prazo_fatal(
-        self, input_usuario: Dict[str, Any]
+        self, documento: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
-        prompt = prompts.ChatPromptTemplate.from_messages(
-            [
-                ("system", prompts_customizados.EXTRATOR_PRAZO_FATAL),
-                ("user", "{input_usuario}"),
-            ]
-        )
-        return self._extrair_informacoes(input_usuario, prompt)
+        return self._extrair_informacoes(prompts_leitor.EXTRAIR_PRAZO_FATAL, documento)
 
-    def extrair_tribunal(
-        self, input_usuario: Dict[str, Any]
+    def extrair_prazo_inicial(
+        self, documento: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
-        prompt = prompts.ChatPromptTemplate.from_messages(
-            [
-                ("system", prompts_customizados.EXTRATOR_TRIBUNAL),
-                ("user", "{input_usuario}"),
-            ]
+        return self._extrair_informacoes(
+            prompts_leitor.EXTRAIR_PRAZO_INICIAL, documento
         )
-        return self._extrair_informacoes(input_usuario, prompt)
 
-    def extrair_vara(self, input_usuario: Dict[str, Any]) -> Dict[str, Optional[str]]:
-        prompt = prompts.ChatPromptTemplate.from_messages(
-            [
-                ("system", prompts_customizados.EXTRATOR_VARA),
-                ("user", "{input_usuario}"),
-            ]
-        )
-        return self._extrair_informacoes(input_usuario, prompt)
+    def extrair_tribunal(self, documento: Dict[str, Any]) -> Dict[str, Optional[str]]:
+        return self._extrair_informacoes(prompts_leitor.EXTRAIR_TRIBUNAL, documento)
+
+    def extrair_vara(self, documento: Dict[str, Any]) -> Dict[str, Optional[str]]:
+        return self._extrair_informacoes(prompts_leitor.EXTRAIR_VARA, documento)
