@@ -14,7 +14,7 @@ class LeitorIntimacoes:
         self.output_parser = output_parsers.JsonOutputParser()
 
     def _extrair_informacoes(
-        self, prompt_usuario: str, documento: Dict[str, Any]
+        self, prompt_usuario: str, dados: Dict[str, Any]
     ) -> Dict[str, Any]:
         message_list = [
             ("system", prompts_leitor.SISTEMA),
@@ -23,41 +23,35 @@ class LeitorIntimacoes:
 
         prompt = prompts.ChatPromptTemplate.from_messages(message_list)
         chain = prompt | self.llm | self.output_parser
-        return chain.invoke({"document": documento})
+        return chain.invoke({"dados": dados})
 
     def extrair_data_disponibilizacao(
-        self, documento: Dict[str, Any]
+        self, dados: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(
-            prompts_leitor.EXTRAIR_DATA_DISPONIBILIZACAO, documento
+            prompts_leitor.EXTRAIR_DATA_DISPONIBILIZACAO, dados
         )
 
     def extrair_determinacao_juiz(
-        self, documento: Dict[str, Any]
+        self, dados: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(
-            prompts_leitor.EXTRAIR_DETERMINACAO_JUIZ, documento
+            prompts_leitor.EXTRAIR_DETERMINACAO_JUIZ, dados
         )
 
-    def extrair_orgao(self, documento: Dict[str, Any]) -> Dict[str, Optional[str]]:
+    def extrair_orgao(self, dados: Dict[str, Any]) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(
-            prompts_leitor.EXTRAIR_ORGAO_RESPONSAVEL, documento
+            prompts_leitor.EXTRAIR_ORGAO_RESPONSAVEL, dados
         )
 
-    def extrair_prazo_fatal(
-        self, documento: Dict[str, Any]
-    ) -> Dict[str, Optional[str]]:
-        return self._extrair_informacoes(prompts_leitor.EXTRAIR_PRAZO_FATAL, documento)
+    def extrair_prazo_fatal(self, dados: Dict[str, Any]) -> Dict[str, Optional[str]]:
+        return self._extrair_informacoes(prompts_leitor.EXTRAIR_PRAZO_FATAL, dados)
 
-    def extrair_prazo_inicial(
-        self, documento: Dict[str, Any]
-    ) -> Dict[str, Optional[str]]:
-        return self._extrair_informacoes(
-            prompts_leitor.EXTRAIR_PRAZO_INICIAL, documento
-        )
+    def extrair_prazo_inicial(self, dados: Dict[str, Any]) -> Dict[str, Optional[str]]:
+        return self._extrair_informacoes(prompts_leitor.EXTRAIR_PRAZO_INICIAL, dados)
 
-    def extrair_tribunal(self, documento: Dict[str, Any]) -> Dict[str, Optional[str]]:
-        return self._extrair_informacoes(prompts_leitor.EXTRAIR_TRIBUNAL, documento)
+    def extrair_tribunal(self, dados: Dict[str, Any]) -> Dict[str, Optional[str]]:
+        return self._extrair_informacoes(prompts_leitor.EXTRAIR_TRIBUNAL, dados)
 
-    def extrair_vara(self, documento: Dict[str, Any]) -> Dict[str, Optional[str]]:
-        return self._extrair_informacoes(prompts_leitor.EXTRAIR_VARA, documento)
+    def extrair_vara(self, dados: Dict[str, Any]) -> Dict[str, Optional[str]]:
+        return self._extrair_informacoes(prompts_leitor.EXTRAIR_VARA, dados)

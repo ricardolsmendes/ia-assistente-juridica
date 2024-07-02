@@ -15,65 +15,79 @@ Comece!
 
 # Identifica a Data de Disponibilização.
 EXTRAIR_DATA_DISPONIBILIZACAO = """
-Extraia a 'Data de Disponibilização' a partir dos seguintes dados:
+Considerando os dados a seguir, extraia a Data de Disponibilização do documento.
 
-{document}
+Instruções:
+1. O nome do campo resultante deve ser `dataDisponibilizacao`.
 
-O nome do campo resultante é `dataDisponibilizacao`.
+Dados:
+{dados}
 """
 
 # Identifica a Determinação do Juiz.
 EXTRAIR_DETERMINACAO_JUIZ = """
-Extraia a 'Determinação do Juiz' a partir dos seguintes dados:
+Considerando os dados a seguir, extraia a Determinação do Juiz.
 
-{document}
+Instruções:
+1. O nome do campo resultante deve ser `determinacaoJuiz`.
 
-O nome do campo resultante é `determinacaoJuiz`.
+Dados:
+{dados}
 """
 
 # Identifica o Órgão responsável.
 EXTRAIR_ORGAO_RESPONSAVEL = """
-Extraia o 'Órgão' a partir dos seguintes dados:
+Considerando os dados a seguir, extraia qual é o Órgão responsável.
 
-{document}
+Instruções:
+1. O nome do campo resultante deve ser `orgao`.
 
-O nome do campo resultante é `orgao`.
+Dados:
+{dados}
 """
 
 # Identifica o Prazo Fatal.
 EXTRAIR_PRAZO_FATAL = """
-Extraia o 'Prazo Fatal' a partir dos seguintes dados:
+Considerando os dados a seguir, extraia o Prazo Fatal.
 
-{document}
-
-O resultado deve ser apresentado como texto, exatamente como está no documento, sem
+Instruções:
+1. O resultado deve ser apresentado como texto, exatamente como está no documento, sem
 cálculos adicionais.
-O nome do campo resultante é `prazoFatal`.
+2. O nome do campo resultante deve ser `prazoFatal`.
+
+Dados:
+{dados}
 """
 
 # Identifica o Prazo Inicial.
 EXTRAIR_PRAZO_INICIAL = """
-Extraia o 'Prazo Inicial' a partir dos seguintes dados:
+Considerando os dados a seguir, extraia o Prazo Inicial.
 
-{document}
+Instruções:
+1. O nome do campo resultante deve ser `prazoInicial`.
 
-O nome do campo resultante é `prazoInicial`.
+Dados:
+{dados}
 """
 
 # Identifica o Tribunal.
 EXTRAIR_TRIBUNAL = """
-Extraia o 'Tribunal' a partir dos seguintes dados:
+Considerando os dados a seguir, extraia qual é o Tribunal responsável.
 
-{document}
+Instruções:
+1. O nome do campo resultante deve ser `tribunal`.
 
-O nome do campo resultante é `tribunal`.
+Dados:
+{dados}
 """
 
 # Identifica a Vara.
 EXTRAIR_VARA = """
-Extraia a 'Vara' a partir dos seguintes dados:
+Considerando os dados a seguir, extraia qual é a Vara responsável.
 
-{document}
+Instruções:
+1. O nome do campo resultante deve ser `vara`.
 
-O nome do campo resultante é `vara`.
+Dados:
+{dados}
 """
