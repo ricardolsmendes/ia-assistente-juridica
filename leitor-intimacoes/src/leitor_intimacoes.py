@@ -3,7 +3,7 @@ from typing import Any, Dict, Optional
 from langchain_core import prompts, output_parsers
 
 import model_factory
-import prompts_leitor
+import prompt_templates
 
 
 class LeitorIntimacoes:
@@ -17,7 +17,7 @@ class LeitorIntimacoes:
         self, prompt_usuario: str, dados: Dict[str, Any]
     ) -> Dict[str, Any]:
         message_list = [
-            ("system", prompts_leitor.SISTEMA),
+            ("system", prompt_templates.SISTEMA),
             ("human", prompt_usuario),
         ]
 
@@ -29,29 +29,29 @@ class LeitorIntimacoes:
         self, dados: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(
-            prompts_leitor.EXTRAIR_DATA_DISPONIBILIZACAO, dados
+            prompt_templates.EXTRAIR_DATA_DISPONIBILIZACAO, dados
         )
 
     def extrair_determinacao_juiz(
         self, dados: Dict[str, Any]
     ) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(
-            prompts_leitor.EXTRAIR_DETERMINACAO_JUIZ, dados
+            prompt_templates.EXTRAIR_DETERMINACAO_JUIZ, dados
         )
 
     def extrair_orgao(self, dados: Dict[str, Any]) -> Dict[str, Optional[str]]:
         return self._extrair_informacoes(
-            prompts_leitor.EXTRAIR_ORGAO_RESPONSAVEL, dados
+            prompt_templates.EXTRAIR_ORGAO_RESPONSAVEL, dados
         )
 
     def extrair_prazo_fatal(self, dados: Dict[str, Any]) -> Dict[str, Optional[str]]:
-        return self._extrair_informacoes(prompts_leitor.EXTRAIR_PRAZO_FATAL, dados)
+        return self._extrair_informacoes(prompt_templates.EXTRAIR_PRAZO_FATAL, dados)
 
     def extrair_prazo_inicial(self, dados: Dict[str, Any]) -> Dict[str, Optional[str]]:
-        return self._extrair_informacoes(prompts_leitor.EXTRAIR_PRAZO_INICIAL, dados)
+        return self._extrair_informacoes(prompt_templates.EXTRAIR_PRAZO_INICIAL, dados)
 
     def extrair_tribunal(self, dados: Dict[str, Any]) -> Dict[str, Optional[str]]:
-        return self._extrair_informacoes(prompts_leitor.EXTRAIR_TRIBUNAL, dados)
+        return self._extrair_informacoes(prompt_templates.EXTRAIR_TRIBUNAL, dados)
 
     def extrair_vara(self, dados: Dict[str, Any]) -> Dict[str, Optional[str]]:
-        return self._extrair_informacoes(prompts_leitor.EXTRAIR_VARA, dados)
+        return self._extrair_informacoes(prompt_templates.EXTRAIR_VARA, dados)
