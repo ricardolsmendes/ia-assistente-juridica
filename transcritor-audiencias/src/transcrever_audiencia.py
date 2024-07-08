@@ -1,3 +1,4 @@
+import time
 import json
 import os
 import sys
@@ -26,35 +27,55 @@ def transcribe(audio_file_name: str) -> str:
         diarize=True, language="pt", model="whisper", smart_format=True, utterances=True
     )
 
-    # response = dg_client.listen.prerecorded.v("1").transcribe_file(
-    #     payload, options, timeout=httpx.Timeout(300.0, connect=10.0)
-    # )
+    response = dg_client.listen.prerecorded.v("1").transcribe_file(
+        payload, options, timeout=httpx.Timeout(300.0, connect=10.0)
+    )
 
     results_file_name = f"{audio_file_name[:-4]}-whisper.json"
-    # with open(results_file_name, "w", encoding="utf-8") as results_file:
-    #     results_file.write(response.to_json(ensure_ascii=False, indent=4))
+    with open(results_file_name, "w", encoding="utf-8") as results_file:
+        results_file.write(response.to_json(ensure_ascii=False, indent=4))
 
     return results_file_name
 
 
+def convert_time(seconds: float):
+    return time.strftime("%H:%M:%S", time.gmtime(seconds))
+
+
 if __name__ == "__main__":
-    results_file_name = transcribe(sys.argv[1])
-    with open(results_file_name, "rb") as results_file:
-        results = json.loads(results_file.read())
+    transcript_file_name = transcribe(sys.argv[1])
+    with open(transcript_file_name, "rb") as transcript_file:
+        transcript = json.loads(transcript_file.read())
 
-    current_speaker = 0
-    current_speech = ""
-    for utterance in results["results"]["utterances"]:
-        speaker = utterance["speaker"]
+    text_file_name = f"{transcript_file_name[:-5]}-fmt.txt"
+    with open(text_file_name, "w") as text_file:
+        current_speaker = 0
+        current_speech_start = None
+        current_speech = ""
+        for utterance in transcript["results"]["utterances"]:
+            if not current_speech_start:
+                current_speech_start = utterance["start"]
+            speaker = utterance["speaker"]
 
-        if speaker != current_speaker:
-            print(f"[speaker {current_speaker}]:")
-            print(current_speech)
+            if speaker != current_speaker:
+                text_file.write(
+                    f"\n\n"
+                    f"[speaker {current_speaker},"
+                    f" {convert_time(current_speech_start)}]:"
+                    f"\n"
+                )
+                text_file.write(current_speech)
 
-            current_speaker = speaker
-            current_speech = ""
+                current_speaker = speaker
+                current_speech_start = None
+                current_speech = ""
 
-        current_speech = f"{current_speech} {utterance['transcript']}"
+            current_speech = f"{current_speech} {utterance['transcript']}"
 
-    print(f"[speaker {current_speaker}]:")
-    print(current_speech)
+        text_file.write(
+            f"\n\n"
+            f"[speaker {current_speaker},"
+            f" {convert_time(current_speech_start)}]:"
+            f"\n"
+        )
+        text_file.write(current_speech)
