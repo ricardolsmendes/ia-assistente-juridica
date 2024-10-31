@@ -1,6 +1,6 @@
 from typing import Any, Dict, Optional
 
-from langchain_core import prompts, output_parsers
+from langchain_core import output_parsers, prompts
 
 import model_factory
 import prompt_templates
