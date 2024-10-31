@@ -1,12 +1,11 @@
-import time
 import json
 import os
 import sys
+import time
 
 import deepgram
 import dotenv
 import httpx
-
 
 dotenv.load_dotenv()
 
@@ -47,35 +46,36 @@ if __name__ == "__main__":
     with open(transcript_file_name, "rb") as transcript_file:
         transcript = json.loads(transcript_file.read())
 
+    current_speaker = None
+    current_transcript_start = None
+    current_transcript = ""
     text_file_name = f"{transcript_file_name[:-5]}-fmt.txt"
     with open(text_file_name, "w") as text_file:
-        current_speaker = 0
-        current_speech_start = None
-        current_speech = ""
         for utterance in transcript["results"]["utterances"]:
-            if not current_speech_start:
-                current_speech_start = utterance["start"]
-            speaker = utterance["speaker"]
+            itr_speaker = utterance["speaker"]
 
-            if speaker != current_speaker:
+            if current_speaker is not None and itr_speaker != current_speaker:
                 text_file.write(
                     f"\n\n"
                     f"[speaker {current_speaker},"
-                    f" {convert_time(current_speech_start)}]:"
+                    f" {convert_time(current_transcript_start)}]:"
                     f"\n"
                 )
-                text_file.write(current_speech)
+                text_file.write(current_transcript)
 
-                current_speaker = speaker
-                current_speech_start = None
-                current_speech = ""
+                current_transcript_start = None
+                current_transcript = ""
 
-            current_speech = f"{current_speech} {utterance['transcript']}"
+            if not current_transcript_start:
+                current_speaker = itr_speaker
+                current_transcript_start = utterance["start"]
+
+            current_transcript = f"{current_transcript} {utterance['transcript']}"
 
         text_file.write(
             f"\n\n"
             f"[speaker {current_speaker},"
-            f" {convert_time(current_speech_start)}]:"
+            f" {convert_time(current_transcript_start)}]:"
             f"\n"
         )
-        text_file.write(current_speech)
+        text_file.write(current_transcript)
