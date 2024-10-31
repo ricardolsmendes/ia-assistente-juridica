@@ -5,7 +5,6 @@ import dotenv
 
 import leitor_intimacoes
 
-
 if __name__ == "__main__":
     arquivo_intimacoes = sys.argv[1]
     familia_llm = sys.argv[2]
