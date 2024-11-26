@@ -6,13 +6,13 @@ import dotenv
 import leitor_intimacoes
 
 if __name__ == "__main__":
+    dotenv.load_dotenv()
+
     arquivo_intimacoes = sys.argv[1]
     familia_llm = sys.argv[2]
 
     with open(arquivo_intimacoes, "r") as f:
         intimacoes = json.load(f)
-
-    dotenv.load_dotenv()
 
     leitor = leitor_intimacoes.LeitorIntimacoes(familia_llm)
 
